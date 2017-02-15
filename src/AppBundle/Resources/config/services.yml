@@ -1,0 +1,7 @@
+parameters:
+    app.mongodb.server: mongodb://localhost:27018/test
+
+services:
+    app.mongodb:
+        class: MongoDB\Driver\Manager
+        arguments: ["%app.mongodb.server%"]
