@@ -8,6 +8,35 @@ use MongoDB\BSON\Unserializable;
 abstract class Entity implements Serializable, Unserializable
 {
     /**
+     * @var string
+     */
+    protected $id;
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew()
+    {
+        return null === $this->id;
+    }
+
+    /**
      * @param array $properties
      */
     public function __construct(array $properties = [])

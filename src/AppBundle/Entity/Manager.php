@@ -14,11 +14,6 @@ abstract class Manager
     protected $dbManager;
 
     /**
-     * @var BulkWrite
-     */
-    private $bulk;
-
-    /**
      * @param MongoDbManager $dbManager
      */
     public function __construct(MongoDbManager $dbManager)
@@ -37,28 +32,53 @@ abstract class Manager
      */
     public function insert(array $document)
     {
-        $this->bulk = null;
-        $id = $this->getBulk()->insert($document);
-        $this->flush();
+        $bulk = new BulkWrite();
+        $id = $bulk->insert($document);
+        $this->flush($bulk);
 
         return $id;
     }
 
     /**
-     * @return BulkWrite
+     * @param string $id
+     * @param array $document
+     * @return string|void
      */
-    private function getBulk()
+    public function update(string $id, array $document)
     {
-        if (null === $this->bulk) {
-            $this->bulk = new BulkWrite();
-        }
-
-        return $this->bulk;
+        $bulk = new BulkWrite();
+        $bulk->update(
+            [
+                '_id' => new ObjectID($id)
+            ],
+            [
+                '$set' => $document
+            ]
+        );
+        $this->flush($bulk);
     }
 
-
-    private function flush()
+    /**
+     * @param BulkWrite $bulk
+     * @return \MongoDB\Driver\WriteResult
+     */
+    private function flush(BulkWrite $bulk)
     {
-        return $this->dbManager->executeBulkWrite('db.' . $this->getCollectionName(), $this->getBulk());
+        return $this->dbManager->executeBulkWrite('db.' . $this->getCollectionName(), $bulk);
+    }
+
+    /**
+     * @param Entity $entity
+     */
+    public function save(Entity $entity)
+    {
+        if ($entity->isNew()) {
+            $id = $this->insert($entity->bsonSerialize());
+            $entity->setId($id);
+
+            return;
+        }
+
+        $this->update($entity->getId(), $entity->bsonSerialize());
     }
 }
