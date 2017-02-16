@@ -2,7 +2,7 @@
 
 namespace UsersBundle\Entity;
 
-use AppBundle\Entity\Manager;
+use AppBundle\Data\Manager;
 
 class UserManager extends Manager
 {

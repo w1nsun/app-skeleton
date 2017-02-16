@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Data;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\Driver\BulkWrite;
