@@ -92,7 +92,7 @@ class RegisterModel extends Model implements UserInterface
         new User([
             'email' => $this->email,
             'password' => $this->password,
-            'created_date' => new UTCDateTime(new \DateTime()),
+            'created_date' => new UTCDateTime(time() * 1000),
             'is_active' => true,
         ]);
     }

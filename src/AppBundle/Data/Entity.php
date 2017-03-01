@@ -39,14 +39,6 @@ abstract class Entity extends Model implements Serializable, Unserializable
     /**
      * @param array $properties
      */
-    public function __construct(array $properties = [])
-    {
-        $this->populateProperties($properties);
-    }
-
-    /**
-     * @param array $properties
-     */
     protected function populateProperties(array $properties)
     {
         foreach ($properties as $name => $value) {
