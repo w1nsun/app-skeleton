@@ -87,9 +87,9 @@ class RegisterModel extends Model implements UserInterface
     {
     }
 
-    public function register()
+    public function createUser()
     {
-        new User([
+        return new User([
             'email' => $this->email,
             'password' => $this->password,
             'created_date' => new UTCDateTime(time() * 1000),

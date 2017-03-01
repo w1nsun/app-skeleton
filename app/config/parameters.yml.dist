@@ -17,3 +17,5 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    mongodb_host: mongodb://localhost:27017/test
+    mongodb_db_name: test

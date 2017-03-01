@@ -1,0 +1,4 @@
+services:
+    users.user_manager:
+        class: UsersBundle\Entity\UserManager
+        parent: app.data_manager

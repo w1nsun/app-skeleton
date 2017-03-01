@@ -26,27 +26,28 @@ class RegistrationController extends Controller
                             ->encodePassword($registerModel, $registerModel->getPlainPassword());
 
             $registerModel->setPassword($password);
-            $registerModel->register();
+            $user = $registerModel->createUser();
+            $this->container->get('users.user_manager')->save($user);
 
             return $this->redirectToRoute('homepage');
         }
 
-        $fb = new Facebook([
-            'app_id' => $this->container->getParameter('facebook_app_id'),
-            'app_secret' => $this->container->getParameter('facebook_app_secret'),
-            'default_graph_version' => 'v2.2',
-        ]);
-
-        $helper = $fb->getRedirectLoginHelper();
-        $permissions = ['email'];
-        $loginUrl = $helper->getLoginUrl(
-            $this->generateUrl('users_registration_fb_callback', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $permissions
-        );
+//        $fb = new Facebook([
+//            'app_id' => $this->container->getParameter('facebook_app_id'),
+//            'app_secret' => $this->container->getParameter('facebook_app_secret'),
+//            'default_graph_version' => 'v2.2',
+//        ]);
+//
+//        $helper = $fb->getRedirectLoginHelper();
+//        $permissions = ['email'];
+//        $loginUrl = $helper->getLoginUrl(
+//            $this->generateUrl('users_registration_fb_callback', [], UrlGeneratorInterface::ABSOLUTE_URL),
+//            $permissions
+//        );
 
         return $this->render('UsersBundle:Registration:register.html.twig', [
             'form' => $form->createView(),
-            'fb_login_url' => $loginUrl,
+            'fb_login_url' => ''//$loginUrl,
         ]);
     }
 

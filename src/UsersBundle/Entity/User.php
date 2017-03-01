@@ -112,11 +112,15 @@ class User extends Entity implements UserInterface
 
     public function bsonSerialize()
     {
-        // TODO: Implement bsonSerialize() method.
+        return [
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
     }
 
     public function bsonUnserialize(array $data)
     {
-        // TODO: Implement bsonUnserialize() method.
+        $this->email = $data['email'];
+        $this->password = $data['password'];
     }
 }

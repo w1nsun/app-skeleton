@@ -14,10 +14,17 @@ abstract class Manager
     protected $dbManager;
 
     /**
+     * @var string
+     */
+    protected $dbName;
+
+    /**
+     * @param string $dbName
      * @param MongoDbManager $dbManager
      */
-    public function __construct(MongoDbManager $dbManager)
+    public function __construct(string $dbName, MongoDbManager $dbManager)
     {
+        $this->dbName = $dbName;
         $this->dbManager = $dbManager;
     }
 
@@ -64,7 +71,7 @@ abstract class Manager
      */
     private function flush(BulkWrite $bulk)
     {
-        return $this->dbManager->executeBulkWrite('db.' . $this->getCollectionName(), $bulk);
+        return $this->dbManager->executeBulkWrite($this->dbName . '.' . $this->getCollectionName(), $bulk);
     }
 
     /**

@@ -1,7 +1,8 @@
-parameters:
-    app.mongodb.server: mongodb://localhost:27018/test
-
 services:
-    app.mongodb:
+    app.mongodb_driver_manager:
         class: MongoDB\Driver\Manager
-        arguments: ["%app.mongodb.server%"]
+        arguments: ["%mongodb_host%"]
+    app.data_manager:
+        class: AppBundle\Data\Manager
+        abstract: true
+        arguments: ['%mongodb_db_name%', '@app.mongodb_driver_manager']
