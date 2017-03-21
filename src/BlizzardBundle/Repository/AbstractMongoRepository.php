@@ -2,6 +2,8 @@
 
 namespace BlizzardBundle\Repository;
 
+use MongoDB\BSON\ObjectID;
+use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Manager;
 
 abstract class AbstractMongoRepository
@@ -22,6 +24,10 @@ abstract class AbstractMongoRepository
      */
     public function __construct(Manager $mongodbManager, array $options)
     {
+        if (!isset($options[$this->getConnectionName()]['database'])) {
+            throw new \InvalidArgumentException('The "database" option is mandatory');
+        }
+
         $this->mongodbManager = $mongodbManager;
         $this->options = $options;
     }
@@ -40,24 +46,51 @@ abstract class AbstractMongoRepository
     }
 
     /**
+     * @param array $document
+     * @return ObjectID
+     */
+    protected function insert(array $document)
+    {
+        $bulk = new BulkWrite();
+        $id = $bulk->insert($document);
+        $this->flush($bulk);
+
+        return $id;
+    }
+
+    /**
+     * @param string $id
+     * @param array $document
+     * @return string|void
+     */
+    protected function update(string $id, array $document)
+    {
+        $bulk = new BulkWrite();
+        $bulk->update(
+            [
+                '_id' => new ObjectID($id)
+            ],
+            [
+                '$set' => $document
+            ]
+        );
+        $this->flush($bulk);
+    }
+
+    /**
+     * @param BulkWrite $bulk
+     * @return \MongoDB\Driver\WriteResult
+     */
+    protected function flush(BulkWrite $bulk)
+    {
+        return $this->mongodbManager->executeBulkWrite($this->getNamespace(), $bulk);
+    }
+
+    /**
      * @return string
      */
-    protected function getConnectionString(): string
+    protected function getNamespace(): string
     {
-        if (!isset($this->options[$this->getConnectionName()]['host'])) {
-            throw new \InvalidArgumentException('The "host" option is mandatory');
-        }
-
-        $connection = 'mongodb://';
-
-        if (
-            isset($this->options[$this->getConnectionName()]['username']) &&
-            isset($this->options[$this->getConnectionName()]['password'])
-        ) {
-            $connection .= $this->options[$this->getConnectionName()]['username'].':'.
-                $this->options[$this->getConnectionName()]['password'].'@';
-        }
-
-        return $connection.$this->options[$this->getConnectionName()]['host'];
+        return $this->options[$this->getConnectionName()]['database'].'.'.$this->getCollectionName();
     }
 }

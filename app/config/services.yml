@@ -7,3 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+framework:
+    session:
+        handler_id:  session.handler.mongo
+        cookie_lifetime: 2592000 # optional, it is set to 30 days here
+        gc_maxlifetime: 2592000 # optional, it is set to 30 days here

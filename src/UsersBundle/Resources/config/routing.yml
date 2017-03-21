@@ -1,3 +1,7 @@
 users_login:
     path: /login
     defaults:  { _controller: UsersBundle:Frontend/Security:login }
+
+users_registration:
+    path: /registration
+    defaults:  { _controller: UsersBundle:Frontend/Security:registration }

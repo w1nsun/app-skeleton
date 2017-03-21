@@ -16,7 +16,7 @@ abstract class AbstractEntity implements EntityInterface, \Serializable
     /**
      * @param array $properties
      */
-    public function __construct(array $properties)
+    public function __construct(array $properties = [])
     {
         foreach ($properties as $name => $value) {
             $method = 'set' . ucwords($name);
