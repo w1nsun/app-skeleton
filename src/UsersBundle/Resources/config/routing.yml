@@ -1,7 +1,3 @@
-users_registration:
-    path: /users/register
-    defaults:  { _controller: UsersBundle:Frontend/Registration:register }
-
-users_registration_fb_callback:
-    path: /users/register/fb-callback
-    defaults:  { _controller: UsersBundle:Frontend/Registration:fbCallback }
+users_login:
+    path: /login
+    defaults:  { _controller: UsersBundle:Frontend/Security:login }

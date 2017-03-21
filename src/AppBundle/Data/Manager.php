@@ -5,6 +5,7 @@ namespace AppBundle\Data;
 use MongoDB\BSON\ObjectID;
 use MongoDB\Driver\BulkWrite;
 use \MongoDB\Driver\Manager as MongoDbManager;
+use MongoDB\Driver\Query;
 
 abstract class Manager
 {
@@ -71,7 +72,7 @@ abstract class Manager
      */
     private function flush(BulkWrite $bulk)
     {
-        return $this->dbManager->executeBulkWrite($this->dbName . '.' . $this->getCollectionName(), $bulk);
+        return $this->dbManager->executeBulkWrite($this->getNamespace(), $bulk);
     }
 
     /**
@@ -87,5 +88,44 @@ abstract class Manager
         }
 
         $this->update($entity->getId(), $entity->bsonSerialize());
+    }
+
+    /**
+     * @param $id
+     * @return null
+     */
+    public function findById($id)
+    {
+        $id = $id instanceof ObjectID ? $id : new ObjectID($id);
+        $query = new Query(['_id' => $id], ['limit' => 1]);
+        $rows = $this->dbManager->executeQuery($this->getNamespace(), $query);
+        foreach ($rows as $row) {
+            return $row;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $query
+     * @return null
+     */
+    public function findOne($query)
+    {
+        $query = new Query($query, ['limit' => 1]);
+        $rows = $this->dbManager->executeQuery($this->getNamespace(), $query);
+        foreach ($rows as $row) {
+            return $row;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getNamespace()
+    {
+        return $this->dbName . '.' . $this->getCollectionName();
     }
 }

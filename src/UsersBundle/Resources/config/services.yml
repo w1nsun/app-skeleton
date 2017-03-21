@@ -1,4 +1,13 @@
+parameters:
+    my.users:
+        confname: default
+        collection: user
+        field: uname
+
 services:
     users.user_manager:
         class: UsersBundle\Entity\UserManager
         parent: app.data_manager
+    my.users.prov:
+        class: UsersBundle\Security\UserProvider
+        arguments: ['%my.users%', '@users.user_manager']

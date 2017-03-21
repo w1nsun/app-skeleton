@@ -41,15 +41,15 @@ abstract class Entity extends Model implements Serializable, Unserializable
      */
     protected function populateProperties(array $properties)
     {
-        foreach ($properties as $name => $value) {
-            $method = 'set' . ucwords($name);
+            foreach ($properties as $name => $value) {
+                $method = 'set' . ucwords($name);
 
-            if (method_exists($this, $method)) {
-                $this->$method($value);
-            } elseif (property_exists($this, $name)) {
-                $this->$name = $value;
+                if (method_exists($this, $method)) {
+                    $this->$method($value);
+                } elseif (property_exists($this, $name)) {
+                    $this->$name = $value;
+                }
             }
-        }
     }
 
     /**
