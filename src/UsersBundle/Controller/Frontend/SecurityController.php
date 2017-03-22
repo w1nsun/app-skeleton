@@ -3,8 +3,11 @@
 namespace UsersBundle\Controller\Frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use UsersBundle\Entity\User;
 use UsersBundle\Form\RegistrationType;
+use UsersBundle\Repository\UserMongoRepository;
 
 class SecurityController extends Controller
 {
@@ -23,22 +26,18 @@ class SecurityController extends Controller
         ));
     }
 
-    public function registrationAction()
+    public function registrationAction(Request $request)
     {
-        $a = $this->container->get('repository.mongo.user');
-
-        var_dump($a);exit;
-
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UserMongoRepository $userMongoRepository */
+            $userMongoRepository = $this->container->get('repository.mongo.user');
+            $userMongoRepository->save($user);
 
-
-            return $this->redirect($this->generateUrl(
-                'admin_post_show',
-                array('id' => 1)
-            ));
+            return new RedirectResponse('/');
         }
 
         return $this->render('UsersBundle:Security:registration.html.twig', array(

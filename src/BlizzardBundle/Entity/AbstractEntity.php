@@ -4,7 +4,6 @@ namespace BlizzardBundle\Entity;
 
 use BlizzardBundle\Exception\PropertyNotFoundException;
 use BlizzardBundle\Interfaces\EntityInterface;
-use BlizzardBundle\Interfaces\IdInterface;
 
 abstract class AbstractEntity implements EntityInterface, \Serializable
 {
@@ -31,18 +30,15 @@ abstract class AbstractEntity implements EntityInterface, \Serializable
         }
     }
 
-    /**
-     * @param IdInterface $id
-     */
-    public function setId(IdInterface $id)
+    public function setId(string $id)
     {
         $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }

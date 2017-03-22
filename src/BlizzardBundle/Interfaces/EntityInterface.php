@@ -5,5 +5,5 @@ namespace BlizzardBundle\Interfaces;
 interface EntityInterface
 {
     public function getId();
-    public function setId(IdInterface $id);
+    public function setId(string $id);
 }

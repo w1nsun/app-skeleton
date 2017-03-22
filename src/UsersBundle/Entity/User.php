@@ -54,7 +54,7 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return bool
      */
-    public function isIsActive(): bool
+    public function isActive(): bool
     {
         return $this->isActive;
     }
@@ -108,11 +108,16 @@ class User extends AbstractEntity implements UserInterface
 
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return [
+            'username' => $this->getUsername(),
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword(),
+            'isActive' => $this->isActive(),
+        ];
     }
 
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        $this->setUsername($serialized['username']);
     }
 }

@@ -12,15 +12,15 @@ class UserMongoRepository extends AbstractMongoRepository
         return 'users';
     }
 
-//    public function save(User $user)
-//    {
-//        if ($entity->isNew()) {
-//            $id = $this->insert($entity->bsonSerialize());
-//            $entity->setId($id);
-//
-//            return;
-//        }
-//
-//        $this->update($entity->getId(), $entity->bsonSerialize());
-//    }
+    public function save(User $user)
+    {
+        if (null === $user->getId()) {
+            $id = $this->insert($user->serialize());
+            $user->setId((string) $id);
+
+            return;
+        }
+
+        $this->update($user->getId(), $user->serialize());
+    }
 }

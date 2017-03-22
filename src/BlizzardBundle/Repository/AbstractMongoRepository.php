@@ -5,6 +5,7 @@ namespace BlizzardBundle\Repository;
 use MongoDB\BSON\ObjectID;
 use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Manager;
+use MongoDB\Driver\WriteConcern;
 
 abstract class AbstractMongoRepository
 {
@@ -52,16 +53,20 @@ abstract class AbstractMongoRepository
     protected function insert(array $document)
     {
         $bulk = new BulkWrite();
-        $id = $bulk->insert($document);
-        $this->flush($bulk);
+        $bulk->insert($document);
+        $result = $this->flush($bulk);
 
-        return $id;
+        foreach ($result->getUpsertedIds() as $index => $id) {
+            return $id;
+        }
+
+        return null;
     }
 
     /**
      * @param string $id
      * @param array $document
-     * @return string|void
+     * @return void
      */
     protected function update(string $id, array $document)
     {
@@ -83,7 +88,9 @@ abstract class AbstractMongoRepository
      */
     protected function flush(BulkWrite $bulk)
     {
-        return $this->mongodbManager->executeBulkWrite($this->getNamespace(), $bulk);
+        $writeConcern = new WriteConcern(WriteConcern::MAJORITY, 1000);
+
+        return $this->mongodbManager->executeBulkWrite($this->getNamespace(), $bulk, $writeConcern);
     }
 
     /**
