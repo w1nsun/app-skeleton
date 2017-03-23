@@ -5,8 +5,13 @@ namespace UsersBundle\Entity;
 use BlizzardBundle\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User extends AbstractEntity implements UserInterface
+class User implements UserInterface
 {
+    /**
+     * @var string
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -28,11 +33,19 @@ class User extends AbstractEntity implements UserInterface
     private $isActive = true;
 
     /**
-     * @param array $properties
+     * @return string
      */
-    public function __construct(array $properties = [])
+    public function getId(): ?string
     {
-        parent::__construct($properties);
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -104,20 +117,5 @@ class User extends AbstractEntity implements UserInterface
 
     public function eraseCredentials()
     {
-    }
-
-    public function serialize()
-    {
-        return [
-            'username' => $this->getUsername(),
-            'email' => $this->getEmail(),
-            'password' => $this->getPassword(),
-            'isActive' => $this->isActive(),
-        ];
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->setUsername($serialized['username']);
     }
 }

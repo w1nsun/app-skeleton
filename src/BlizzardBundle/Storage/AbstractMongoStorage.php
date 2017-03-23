@@ -1,13 +1,14 @@
 <?php
 
-namespace BlizzardBundle\Repository;
+namespace BlizzardBundle\Storage;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 use MongoDB\Driver\WriteConcern;
 
-abstract class AbstractMongoRepository
+abstract class AbstractMongoStorage
 {
     /**
      * @var Manager
@@ -25,7 +26,7 @@ abstract class AbstractMongoRepository
      */
     public function __construct(Manager $mongodbManager, array $options)
     {
-        if (!isset($options[$this->getConnectionName()]['database'])) {
+        if (!isset($options['database'])) {
             throw new \InvalidArgumentException('The "database" option is mandatory');
         }
 
@@ -33,24 +34,21 @@ abstract class AbstractMongoRepository
         $this->options = $options;
     }
 
-    /**
-     * @return string
-     */
-    abstract public function getCollectionName(): string;
+    abstract protected function getCollectionName(): string;
 
     /**
      * @return string
      */
-    protected function getConnectionName(): string
+    protected function getNamespace(): string
     {
-        return 'default';
+        return $this->options['database'].'.'.$this->getCollectionName();
     }
 
     /**
      * @param array $document
      * @return ObjectID
      */
-    protected function insert(array $document)
+    public function add(array $document)
     {
         $bulk = new BulkWrite();
         $bulk->insert($document);
@@ -68,7 +66,7 @@ abstract class AbstractMongoRepository
      * @param array $document
      * @return void
      */
-    protected function update(string $id, array $document)
+    public function update(string $id, array $document)
     {
         $bulk = new BulkWrite();
         $bulk->update(
@@ -94,10 +92,33 @@ abstract class AbstractMongoRepository
     }
 
     /**
-     * @return string
+     * @param $id
+     * @return null
      */
-    protected function getNamespace(): string
+    public function find($id)
     {
-        return $this->options[$this->getConnectionName()]['database'].'.'.$this->getCollectionName();
+        $id = $id instanceof ObjectID ? $id : new ObjectID($id);
+        $query = new Query(['_id' => $id], ['limit' => 1]);
+        $rows = $this->mongodbManager->executeQuery($this->getNamespace(), $query);
+        foreach ($rows as $row) {
+            return $row;
+        }
+
+        return null;
     }
+
+    /**
+     * @param $id
+     */
+    public function delete($id)
+    {
+        $bulk = new BulkWrite();
+        $bulk->delete(
+            [
+                '_id' => new ObjectID($id)
+            ]
+        );
+        $this->flush($bulk);
+    }
+
 }

@@ -6,8 +6,8 @@ parameters:
     mongodb_username: ~
     mongodb_password: ~
     mongo.repository:
-        default:
-            database: blizzard
+        database: blizzard
+
 
 services:
     # ...

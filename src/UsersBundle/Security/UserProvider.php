@@ -2,26 +2,25 @@
 
 namespace UsersBundle\Security;
 
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use UsersBundle\Entity\UserManager;
+use UsersBundle\Entity\User;
+use UsersBundle\Repository\UserMongoRepository;
 
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var UserManager
+     * @var UserMongoRepository
      */
-    private $userManager;
+    private $userRepository;
 
     /**
-     * @param array $params
-     * @param UserManager $userManager
+     * @param UserMongoRepository $userRepository
      */
-    public function __construct(array $params, UserManager $userManager)
+    public function __construct(UserMongoRepository $userRepository)
     {
-        $this->userManager = $userManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -30,9 +29,9 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userManager->findById(array('email' => $username));
+        $userData = $this->userRepository->findByUsername(['username' => $username]);
+        $user = new User();
 
-        // выбрасываем спец. исключение, если пользователь не найден.
         if (!isset($user->uname) || $user->uname !== $username) {
             throw new UsernameNotFoundException(sprintf('User "%s" does not exist.', $username));
         }
