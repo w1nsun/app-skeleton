@@ -5,7 +5,7 @@ parameters:
     mongodb_host: 127.0.0.1
     mongodb_username: ~
     mongodb_password: ~
-    mongo.repository:
+    mongo.storage:
         database: blizzard
 
 

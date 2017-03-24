@@ -20,6 +20,9 @@ class UserRepository
         $this->storage = $storage;
     }
 
+    /**
+     * @param User $user
+     */
     public function save(User $user)
     {
         $document = [

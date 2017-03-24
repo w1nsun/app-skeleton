@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use UsersBundle\Entity\User;
 use UsersBundle\Form\RegistrationType;
-use UsersBundle\Repository\UserMongoRepository;
+use UsersBundle\Repository\UserRepository;
 
 class SecurityController extends Controller
 {
@@ -33,9 +33,9 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UserMongoRepository $userMongoRepository */
-            $userMongoRepository = $this->container->get('repository.mongo.user');
-            $userMongoRepository->save($user);
+            /** @var UserRepository $userRepository */
+            $userRepository = $this->container->get('repository.user');
+            $userRepository->save($user);
 
             return new RedirectResponse('/');
         }
