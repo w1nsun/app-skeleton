@@ -23,7 +23,7 @@ class UserRepository
     /**
      * @param User $user
      */
-    public function save(User $user)
+    public function save(User $user): void
     {
         $document = [
             'username' => $user->getUsername(),
@@ -40,5 +40,19 @@ class UserRepository
         }
 
         $this->storage->update($user->getId(), $document);
+    }
+
+    /**
+     * @param $username
+     * @return null|User
+     */
+    public function findByUsername($username): ?User
+    {
+        $rows = $this->storage->find(['username' => $username])->toArray();
+        if (!count($rows)) {
+            return null;
+        }
+
+        return User::fromState($rows[0]);
     }
 }

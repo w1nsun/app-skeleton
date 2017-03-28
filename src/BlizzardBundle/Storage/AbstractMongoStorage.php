@@ -95,7 +95,7 @@ abstract class AbstractMongoStorage
      * @param $id
      * @return null
      */
-    public function find($id)
+    public function findById($id)
     {
         $id = $id instanceof ObjectID ? $id : new ObjectID($id);
         $query = new Query(['_id' => $id], ['limit' => 1]);
@@ -105,6 +105,20 @@ abstract class AbstractMongoStorage
         }
 
         return null;
+    }
+
+    /**
+     * @param array $condition
+     * @param int $limit
+     * @param int $skip
+     * @return \MongoDB\Driver\Cursor
+     */
+    public function find(array $condition = [], int $limit = 1, int $skip = 0)
+    {
+        $query = new Query($condition, ['limit' => $limit, $skip => $skip]);
+        $rows = $this->mongodbManager->executeQuery($this->getNamespace(), $query);
+
+        return $rows;
     }
 
     /**

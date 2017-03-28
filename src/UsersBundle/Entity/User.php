@@ -33,6 +33,23 @@ class User implements UserInterface
     private $isActive = true;
 
     /**
+     * @param string $id
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     * @param bool $isActive
+     */
+    public function __construct(?string $id, ?string $username, ?string $email, ?string $password, ?bool $isActive)
+    {
+        $this->setId($id);
+        $this->setUsername($username);
+        $this->setEmail($email);
+        $this->setPassword($password);
+        $this->setIsActive($isActive);
+    }
+
+
+    /**
      * @return string
      */
     public function getId(): ?string
@@ -117,5 +134,20 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @param array $state
+     * @return User
+     */
+    public static function fromState(array $state): User
+    {
+        return new self(
+            (string) $state['_id'],
+            $state['username'],
+            $state['email'],
+            $state['password'],
+            $state['is_active']
+        );
     }
 }
