@@ -7,9 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    mongo_user_provider:
+    users.user_provider:
         class: UsersBundle\Security\UserProvider
-        arguments: ['@repository.user']
+        arguments: ['@users.repository.user']
 
 framework:
     session:

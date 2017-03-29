@@ -1,7 +1,9 @@
 services:
-    storage.mongo.user:
+    users.storage.mongo.user:
         class: UsersBundle\Storage\UserMongoStorage
         arguments: ['@mongo_client', '%mongo.storage%']
-    repository.user:
+    users.repository.user:
         class: UsersBundle\Repository\UserRepository
-        arguments: ['@storage.mongo.user']
+        arguments: ['@users.storage.mongo.user']
+    users.security.form_authenticator:
+        class: UsersBundle\Security\FormAuthenticator
