@@ -30,6 +30,8 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
+
+        var_dump(111);exit;
         $user = $this->userRepository->findByUsername(['username' => $username]);
 
         if (!$user) {
@@ -41,6 +43,7 @@ class UserProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
+        var_dump(222);exit;
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
                 sprintf('Instances of "%s" are not supported.', get_class($user))

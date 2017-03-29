@@ -39,8 +39,13 @@ class User implements UserInterface
      * @param string $password
      * @param bool $isActive
      */
-    public function __construct(?string $id, ?string $username, ?string $email, ?string $password, ?bool $isActive)
-    {
+    public function __construct(
+        ?string $id = null,
+        ?string $username = null,
+        ?string $email = null,
+        ?string $password = null,
+        ?bool $isActive = null
+    ) {
         $this->setId($id);
         $this->setUsername($username);
         $this->setEmail($email);
