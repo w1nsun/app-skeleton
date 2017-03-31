@@ -53,6 +53,6 @@ class UserRepository
             return null;
         }
 
-        return User::fromState($rows[0]);
+        return User::fromState((array) $rows[0]);
     }
 }

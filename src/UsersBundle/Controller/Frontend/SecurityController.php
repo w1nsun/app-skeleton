@@ -45,4 +45,9 @@ class SecurityController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    public function loginCheckAction()
+    {
+        return $this->redirectToRoute('homepage');
+    }
 }

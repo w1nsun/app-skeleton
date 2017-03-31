@@ -7,3 +7,4 @@ services:
         arguments: ['@users.storage.mongo.user']
     users.security.form_authenticator:
         class: UsersBundle\Security\FormAuthenticator
+        arguments: ['@router']
