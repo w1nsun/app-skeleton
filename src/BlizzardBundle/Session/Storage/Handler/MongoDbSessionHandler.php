@@ -16,6 +16,10 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
      */
     private $options;
 
+    /**
+     * @param MongoDbManager $mongo
+     * @param array $options
+     */
     public function __construct(MongoDbManager $mongo, array $options)
     {
         if (!isset($options['database']) || !isset($options['collection'])) {
@@ -110,7 +114,7 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
             return '';
         }
 
-        $dbData = array_shift($results);
+        $dbData = (array) array_shift($results);
 
         if ($dbData[$this->options['data_field']] instanceof \MongoDB\BSON\Binary) {
             return $dbData[$this->options['data_field']]->getData();

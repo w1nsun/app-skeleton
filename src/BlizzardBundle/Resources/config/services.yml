@@ -17,6 +17,6 @@ services:
         #arguments: ['mongodb://%mongodb_username%:%mongodb_password%@%mongodb_host%:27017']
         # if not using a username and password
         arguments: ['mongodb://%mongodb_host%:27017']
-    session.handler.mongo:
+    blizzard.session.handler.mongo:
         class: BlizzardBundle\Session\Storage\Handler\MongoDbSessionHandler
         arguments: ['@mongo_client', '%mongo.session.options%']
