@@ -22,7 +22,7 @@ class AssetsCommand extends ContainerAwareCommand
     {
         $rootDir = $this->getContainer()->get('kernel')->getRootDir() . '/..';
         $destinationSrcDir = $rootDir . '/web/assets/admin/build';
-        $destinationSrcVendorDir = $rootDir . '/web/assets/admin/vendor';
+        $destinationSrcVendorDir = $rootDir . '/web/assets/admin/vendors';
         $srcDir = $rootDir . '/node_modules/gentelella/build';
         $srcVendorDir = $rootDir . '/node_modules/gentelella/vendors';
 

@@ -4,3 +4,6 @@ app:
 
 users:
   resource: '@UsersBundle/Resources/config/routing.yml'
+
+admin:
+  resource: '@AdminBundle/Resources/config/routing.yml'

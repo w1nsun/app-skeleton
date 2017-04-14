@@ -1,6 +1,7 @@
 <?php
 
 namespace UsersBundle\Controller\Frontend;
+
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;

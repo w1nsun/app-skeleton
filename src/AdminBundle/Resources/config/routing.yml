@@ -1,0 +1,3 @@
+admin_backend_main_index:
+    path: /admin/main/index
+    defaults:  { _controller: AdminBundle:Backend/Main:index }
