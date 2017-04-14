@@ -14,8 +14,7 @@ class AssetsCommand extends ContainerAwareCommand
         $this
             ->setName('admin:assets:install')
             ->setDescription('Install admin theme assets.')
-            ->setHelp('Install admin theme assets...')
-        ;
+            ->setHelp('Install admin theme assets...');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
