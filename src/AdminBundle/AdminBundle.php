@@ -1,9 +1,9 @@
 <?php
 
-namespace UsersBundle;
+namespace AdminBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class UsersBundle extends Bundle
+class AdminBundle extends Bundle
 {
 }
