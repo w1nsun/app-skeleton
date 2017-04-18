@@ -2,6 +2,10 @@ users_login:
     path: /login
     defaults:  { _controller: UsersBundle:Frontend/Security:login }
 
+users_security_fb_callback:
+    path: /users/security/fb-callback
+    defaults:  { _controller: UsersBundle:Frontend/Security:fbCallback }
+
 users_login_check:
     path: /login_check
     defaults: { _controller: UsersBundle:Frontend/Security:loginCheck }
