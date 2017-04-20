@@ -11,7 +11,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
@@ -73,6 +75,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator
         $plainPassword = $credentials['password'];
 
         if ($this->passwordEncoder->isPasswordValid($user, $plainPassword)) {
+            if ($user instanceof AdvancedUserInterface && !$user->isEnabled()) {
+                throw new LockedException();
+            }
+
             return true;
         }
 

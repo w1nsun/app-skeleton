@@ -2,9 +2,9 @@
 
 namespace UsersBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     /**
      * @var string
@@ -152,4 +152,26 @@ class User implements UserInterface
 
         return $self;
     }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive();
+    }
+
+
 }
