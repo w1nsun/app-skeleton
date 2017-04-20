@@ -8,7 +8,6 @@ use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use UsersBundle\Form\RegisterType;
 use UsersBundle\Model\RegisterModel;
 

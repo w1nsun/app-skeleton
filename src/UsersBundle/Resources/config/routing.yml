@@ -14,3 +14,7 @@ users_login_check:
 users_registration:
     path: /registration
     defaults:  { _controller: UsersBundle:Frontend/Security:registration }
+
+users_admin_manage_index:
+    path: /admin/users/manage
+    defaults:  { _controller: UsersBundle:Backend/Manage:index }
