@@ -36,7 +36,7 @@ class SecurityController extends Controller
             ['email']
         );
 
-        return $this->render('UsersBundle:Security:login.html.twig', array(
+        return $this->render('UsersBundle:Frontend/Security:login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'fb_login_url'  => $loginUrl,
@@ -61,7 +61,7 @@ class SecurityController extends Controller
             return new RedirectResponse('/');
         }
 
-        return $this->render('UsersBundle:Security:registration.html.twig', array(
+        return $this->render('UsersBundle:Frontend/Security:registration.html.twig', array(
             'form' => $form->createView(),
         ));
     }
