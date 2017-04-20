@@ -7,3 +7,6 @@ users:
 
 admin:
   resource: '@AdminBundle/Resources/config/routing.yml'
+
+logout:
+    path: /logout

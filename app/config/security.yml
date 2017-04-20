@@ -10,13 +10,14 @@ security:
     role_hierarchy:
         ROLE_MODERATOR: ROLE_USER
         ROLE_ADMIN: ROLE_MODERATOR
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ROOT: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     providers:
         users.user_provider:
             id: users.user_provider
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: ROLE_ADMIN }
     firewalls:
        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
