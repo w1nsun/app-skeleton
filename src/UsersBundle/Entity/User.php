@@ -2,7 +2,6 @@
 
 namespace UsersBundle\Entity;
 
-use BlizzardBundle\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
@@ -28,31 +27,14 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var bool
      */
     private $isActive = true;
-
-    /**
-     * @param string $id
-     * @param string $username
-     * @param string $email
-     * @param string $password
-     * @param bool $isActive
-     */
-    public function __construct(
-        ?string $id = null,
-        ?string $username = null,
-        ?string $email = null,
-        ?string $password = null,
-        ?bool $isActive = null
-    ) {
-        $this->setId($id);
-        $this->setUsername($username);
-        $this->setEmail($email);
-        $this->setPassword($password);
-        $this->setIsActive($isActive);
-    }
-
 
     /**
      * @return string
@@ -122,9 +104,7 @@ class User implements UserInterface
 
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
+        return 'salt';
     }
 
     public function getPassword()
@@ -142,17 +122,34 @@ class User implements UserInterface
     }
 
     /**
+     * @return string
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
      * @param array $state
      * @return User
      */
     public static function fromState(array $state): User
     {
-        return new self(
-            (string) $state['_id'],
-            $state['username'],
-            $state['email'],
-            $state['password'],
-            $state['is_active']
-        );
+        $self = new self();
+        $self->setId((string) $state['_id']);
+        $self->setUsername($state['username']);
+        $self->setEmail($state['email']);
+        $self->setPassword($state['password']);
+        $self->setIsActive($state['is_active']);
+
+        return $self;
     }
 }

@@ -22,7 +22,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, [
 
             ])
-            ->add('password', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
 
             ])
             ->add('submit', SubmitType::class, [

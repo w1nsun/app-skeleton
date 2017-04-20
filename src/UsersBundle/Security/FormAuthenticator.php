@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Security;
@@ -23,11 +24,18 @@ class FormAuthenticator extends AbstractGuardAuthenticator
     private $router;
 
     /**
-     * @param RouterInterface $router
+     * @var UserPasswordEncoderInterface
      */
-    public function __construct(RouterInterface $router)
+    private $passwordEncoder;
+
+    /**
+     * @param RouterInterface $router
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+    public function __construct(RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->router = $router;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     /**
@@ -36,7 +44,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        if (!$request->isMethod('POST') && $request->getPathInfo() != '/login_check') {
+        if (!$request->isMethod('POST') || $request->getPathInfo() != '/login_check') {
             return;
         }
 
@@ -64,7 +72,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator
     {
         $plainPassword = $credentials['password'];
 
-        if ($plainPassword === $user->getPassword()) {
+        if ($this->passwordEncoder->isPasswordValid($user, $plainPassword)) {
             return true;
         }
 
