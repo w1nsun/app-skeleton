@@ -97,7 +97,21 @@ class SecurityController extends Controller
             // access token from $_SESSION['facebook_access_token']
         }
 
-        dump($accessToken);
+        try {
+            $response = $fb->get('/me?fields=id,name,email', $accessToken);
+            $userNode = $response->getGraphUser();
+        } catch(FacebookResponseException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+
+        dump($response);
+        dump($userNode->getEmail());
         exit;
     }
 }
