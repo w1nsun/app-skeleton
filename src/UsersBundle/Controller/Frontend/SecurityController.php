@@ -110,8 +110,8 @@ class SecurityController extends Controller
             exit;
         }
 
-        dump($response);
-        dump($userNode->getEmail());
+//        dump($response);
+//        dump($userNode->getEmail());
         exit;
     }
 }
