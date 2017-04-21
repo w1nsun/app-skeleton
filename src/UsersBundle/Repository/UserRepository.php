@@ -30,6 +30,8 @@ class UserRepository
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
             'is_active' => $user->isActive(),
+            'created_at' => $user->getCreatedAt(),
+            'roles' => $user->getRoles(),
         ];
 
         if (null === $user->getId()) {
@@ -54,5 +56,21 @@ class UserRepository
         }
 
         return User::fromState((array) $rows[0]);
+    }
+
+    /**
+     * @param int $skip
+     * @param int $limit
+     * @return array|User[]
+     */
+    public function findAll(int $skip = 0, int $limit = 25): array
+    {
+        $rows = $this->storage->find([], $skip, $limit)->toArray();
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = User::fromState((array) $row);
+        }
+
+        return $users;
     }
 }

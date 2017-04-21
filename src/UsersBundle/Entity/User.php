@@ -37,6 +37,22 @@ class User implements AdvancedUserInterface
     private $isActive = true;
 
     /**
+     * @var int
+     */
+    private $createdAt;
+
+    /**
+     * @var array
+     */
+    private $roles = [];
+
+    public function __construct()
+    {
+        $this->setRoles(['ROLE_USER']);
+        $this->setCreatedAt(time());
+    }
+
+    /**
      * @return string
      */
     public function getId(): ?string
@@ -112,9 +128,20 @@ class User implements AdvancedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @return array
+     */
     public function getRoles()
     {
-        return ['ROLE_ROOT'];
+        return $this->roles;
     }
 
     public function eraseCredentials()
@@ -149,6 +176,8 @@ class User implements AdvancedUserInterface
         $self->setEmail($state['email']);
         $self->setPassword($state['password']);
         $self->setIsActive($state['is_active']);
+        $self->setCreatedAt($state['created_at']);
+        $self->setRoles($state['roles']);
 
         return $self;
     }
@@ -173,5 +202,27 @@ class User implements AdvancedUserInterface
         return $this->isActive();
     }
 
+    /**
+     * @return int
+     */
+    public function getCreatedAt(): int
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @param int $createdAt
+     */
+    public function setCreatedAt(int $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew()
+    {
+        return (bool) $this->getId();
+    }
 }

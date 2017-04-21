@@ -8,19 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}{{ title }}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-    <!-- Bootstrap -->
-    <link href="/assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/assets/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="/assets/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="/assets/admin/build/css/custom.min.css" rel="stylesheet">
+    {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="/assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="/assets/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="/assets/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="/assets/admin/build/css/custom.min.css" rel="stylesheet">
+    {% endblock %}
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -281,16 +282,17 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="/assets/admin/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="/assets/admin/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/assets/admin/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/assets/admin/vendors/nprogress/nprogress.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="/assets/admin/build/js/custom.min.js"></script>
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        <!-- jQuery -->
+        <script src="/assets/admin/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/assets/admin/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="/assets/admin/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="/assets/admin/vendors/nprogress/nprogress.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="/assets/admin/build/js/custom.min.js"></script>
+    {% endblock %}
 </body>
 </html>
