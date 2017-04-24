@@ -1,3 +1,9 @@
 users_admin_client_create:
     path: /admin/rest/client/create
     defaults:  { _controller: RestBundle:Backend/Client:create }
+
+users_admin_client_generate_token:
+    path: /admin/rest/client/generate-token
+    defaults:  { _controller: RestBundle:Backend/Client:generateToken }
+    condition: "request.isXmlHttpRequest()"
+    methods: [POST]

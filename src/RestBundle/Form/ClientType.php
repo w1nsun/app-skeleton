@@ -6,7 +6,7 @@ use RestBundle\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,9 +19,12 @@ class ClientType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Name',
             ])
-            ->add('token', TextType::class, [
+            ->add('token', TextareaType::class, [
                 'label' => 'Token',
-                'disabled' => true,
+                'attr' => [
+                    'readonly' => 'readonly',
+                    'class' => 'js-token-input',
+                ]
             ])
             ->add('resources', ChoiceType::class, [
                 'label' => 'Available Resources',
@@ -32,6 +35,7 @@ class ClientType extends AbstractType
                 'label' => 'Roles',
                 'multiple' => true,
                 'expanded' => false,
+                'choices' => array_combine($options['roles'], $options['roles']),
             ])
             ->add('isActive', CheckboxType::class, [
                 'label' => 'Active ?',
@@ -46,5 +50,8 @@ class ClientType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Client::class,
         ]);
+
+        $resolver->setRequired('roles');
+        $resolver->setAllowedTypes('roles', ['array']);
     }
 }

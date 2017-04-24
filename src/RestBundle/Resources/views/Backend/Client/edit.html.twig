@@ -1,11 +1,22 @@
 {% extends 'AdminBundle::base.html.twig' %}
 
-{% form_theme form 'AdminBundle::form.html.twig' %}
-
 {% block stylesheets %}
     {{ parent() }}
     <!-- Switchery -->
     <link href="/assets/admin/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+{% endblock %}
+
+{% form_theme form _self 'AdminBundle::form.html.twig' %}
+
+{% block _client_token_widget %}
+    <div class="col-md-9 col-sm-9 col-xs-9" style="padding-left: 0px;">
+        {{ form(form) }}
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <div class="btn btn-primary btn-xs js-generate-token-req">{{ 'Generate'|trans }}</div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -26,7 +37,7 @@
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-success">
                                 <i class="fa fa-save"></i>
-                                {{ 'Сохранить'|trans }}
+                                {{ 'Save'|trans }}
                             </button>
                         </div>
                     </div>
@@ -41,4 +52,16 @@
     {{ parent() }}
     <!-- Switchery -->
     <script src="/assets/admin/vendors/switchery/dist/switchery.min.js"></script>
+    <script>
+        $('.js-generate-token-req').on('click', function () {
+            $.ajax({
+                'dataType': 'json',
+                'method' : 'POST',
+                'url' : '{{ path('users_admin_client_generate_token') }}',
+                'success' : function (response) {
+                    $('.js-token-input').val(response);
+                }
+            });
+        });
+    </script>
 {% endblock %}
