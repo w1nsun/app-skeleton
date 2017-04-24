@@ -1,5 +1,44 @@
 {% extends 'AdminBundle::base.html.twig' %}
 
+{% form_theme form 'AdminBundle::form.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Switchery -->
+    <link href="/assets/admin/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    {{ form(form) }}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{ 'Create REST Client'|trans }}</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    {{ form_start(form) }}
+                    <br>
+                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-save"></i>
+                                {{ 'Сохранить'|trans }}
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Switchery -->
+    <script src="/assets/admin/vendors/switchery/dist/switchery.min.js"></script>
 {% endblock %}
