@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new BlizzardBundle\BlizzardBundle(),
             new AppBundle\AppBundle(),
             new UsersBundle\UsersBundle(),
+            new RestBundle\RestBundle(),
             new AdminBundle\AdminBundle(),
         ];
 

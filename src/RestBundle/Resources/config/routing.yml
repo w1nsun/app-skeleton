@@ -1,0 +1,3 @@
+users_admin_client_create:
+    path: /admin/rest/client/create
+    defaults:  { _controller: RestBundle:Backend/Client:create }
