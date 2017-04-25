@@ -50,3 +50,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+tequila_mongodb:
+    connections:
+        default:
+            uri: mongodb://mongo/
+    databases:
+        default:
+            name: blizzard
+            connection: default

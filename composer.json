@@ -2,6 +2,8 @@
     "name": "ilya/project",
     "license": "proprietary",
     "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "": "src/"
@@ -26,7 +28,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "facebook/graph-sdk" : "~5.0",
-        "symfony/dependency-injection": "^3.2"
+        "symfony/dependency-injection": "^3.2",
+        "tequila/mongodb-odm-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
