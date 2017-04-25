@@ -1,3 +1,9 @@
 services:
     rest.component.token_generator:
         class: RestBundle\Component\TokenGenerator
+    rest.storage.mongo.client:
+        class: RestBundle\Storage\ClientMongoStorage
+        arguments: ['@mongo_client', '%mongo.storage%']
+    rest.repository.client:
+        class: RestBundle\Repository\ClientRepository
+        arguments: ['@rest.storage.mongo.client']

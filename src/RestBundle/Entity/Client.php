@@ -41,6 +41,11 @@ class Client implements AdvancedUserInterface
      */
     private $isActive = true;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(time());
+    }
+
 
     public function isAccountNonExpired()
     {
@@ -60,6 +65,11 @@ class Client implements AdvancedUserInterface
     public function isEnabled()
     {
         return $this->isActive();
+    }
+
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     public function getRoles()
@@ -182,4 +192,21 @@ class Client implements AdvancedUserInterface
         $this->name = $name;
     }
 
+    /**
+     * @param array $state
+     * @return Client
+     */
+    public static function fromState(array $state): Client
+    {
+        $self = new self();
+        $self->setId((string) $state['_id']);
+        $self->setName($state['name']);
+        $self->setToken($state['token']);
+        $self->setResources($state['resources']);
+        $self->setIsActive($state['is_active']);
+        $self->setCreatedAt($state['created_at']);
+        $self->setRoles($state['roles']);
+
+        return $self;
+    }
 }

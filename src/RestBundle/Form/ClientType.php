@@ -30,6 +30,9 @@ class ClientType extends AbstractType
                 'label' => 'Available Resources',
                 'multiple' => true,
                 'expanded' => false,
+                'choices' => [
+                    'test' => 'test',
+                ],
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Roles',

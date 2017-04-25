@@ -1,8 +1,12 @@
-users_admin_client_create:
+rest_admin_client_create:
     path: /admin/rest/client/create
     defaults:  { _controller: RestBundle:Backend/Client:create }
 
-users_admin_client_generate_token:
+rest_admin_client_index:
+    path: /admin/rest/client/index
+    defaults:  { _controller: RestBundle:Backend/Client:index }
+
+rest_admin_client_generate_token:
     path: /admin/rest/client/generate-token
     defaults:  { _controller: RestBundle:Backend/Client:generateToken }
     condition: "request.isXmlHttpRequest()"

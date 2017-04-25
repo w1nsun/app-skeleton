@@ -5,6 +5,7 @@ namespace RestBundle\Controller\Backend;
 use RestBundle\Component\TokenGenerator;
 use RestBundle\Entity\Client;
 use RestBundle\Form\ClientType;
+use RestBundle\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,22 @@ class ClientController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ClientRepository $clientRepository */
+            $clientRepository = $this->container->get('rest.repository.client');
+            $clientRepository->save($client);
 
+            return $this->redirectToRoute('rest_admin_client_index');
         }
 
         return $this->render('RestBundle:Backend/Client:edit.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function indexAction()
+    {
+        echo 'coming soon';
+        exit;
     }
 
     public function generateTokenAction()
