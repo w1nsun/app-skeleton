@@ -43,4 +43,20 @@ class ClientRepository
 
         $this->storage->update($client->getId(), $document);
     }
+
+    /**
+     * @param int $skip
+     * @param int $limit
+     * @return array|Client[]
+     */
+    public function findAll(int $skip = 0, int $limit = 25): array
+    {
+        $rows = $this->storage->find([], $skip, $limit)->toArray();
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = Client::fromState((array) $row);
+        }
+
+        return $users;
+    }
 }

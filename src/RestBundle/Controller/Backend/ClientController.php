@@ -35,8 +35,13 @@ class ClientController extends Controller
 
     public function indexAction()
     {
-        echo 'coming soon';
-        exit;
+        /** @var ClientRepository $clientRepository */
+        $clientRepository = $this->container->get('rest.repository.client');
+        $clients = $clientRepository->findAll();
+
+        return $this->render('RestBundle:Backend/Client:index.html.twig', [
+            'clients' => $clients,
+        ]);
     }
 
     public function generateTokenAction()
