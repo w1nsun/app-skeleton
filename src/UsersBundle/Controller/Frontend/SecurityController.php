@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use UsersBundle\Entity\User;
-use UsersBundle\Factory\UserFactory;
 use UsersBundle\Form\RegistrationType;
 use UsersBundle\Repository\UserRepository;
 
