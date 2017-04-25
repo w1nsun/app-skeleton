@@ -32,6 +32,8 @@ class UserRepository
             'is_active' => $user->isActive(),
             'created_at' => $user->getCreatedAt(),
             'roles' => $user->getRoles(),
+            'social' => $user->getSocial(),
+            'social_id' => $user->getSocialId(),
         ];
 
         if (null === $user->getId()) {
@@ -72,5 +74,20 @@ class UserRepository
         }
 
         return $users;
+    }
+
+    /**
+     * @param string $social
+     * @param string $socialId
+     * @return null|User
+     */
+    public function findBySocial(string $social, string $socialId): ?User
+    {
+        $rows = $this->storage->find(['social' => $social, 'social_id' => $socialId])->toArray();
+        if (!count($rows)) {
+            return null;
+        }
+
+        return User::fromState((array) $rows[0]);
     }
 }

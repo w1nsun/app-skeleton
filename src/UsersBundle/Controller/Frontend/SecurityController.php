@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use UsersBundle\Entity\User;
 use UsersBundle\Factory\UserFactory;
@@ -114,8 +115,24 @@ class SecurityController extends Controller
             exit;
         }
 
-//        dump($response);
-//        dump($userNode->getEmail());
-        exit;
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->container->get('users.repository.user');
+        $user = $userRepository->findBySocial('facebook', (string) $userNode->getId());
+
+        if (!$user) {
+            $user = new User();
+            $user->setUsername($userNode->getEmail());
+            $user->setPassword(md5(time()));
+            $user->setEmail($userNode->getEmail());
+            $user->setSocial('facebook');
+            $user->setSocialId((string) $userNode->getId());
+            $userRepository->save($user);
+        }
+
+        $token = new UsernamePasswordToken($user, null, 'secured_area', $user->getRoles());
+        $this->container->get('security.token_storage')->setToken($token);
+        $this->container->get('session')->set('_security_secured_area', serialize($token));
+
+        return $this->redirectToRoute('homepage');
     }
 }

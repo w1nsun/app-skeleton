@@ -42,6 +42,16 @@ class User implements AdvancedUserInterface
     private $createdAt;
 
     /**
+     * @var string
+     */
+    private $social;
+
+    /**
+     * @var string
+     */
+    private $socialId;
+
+    /**
      * @var array
      */
     private $roles = [];
@@ -178,6 +188,8 @@ class User implements AdvancedUserInterface
         $self->setIsActive($state['is_active']);
         $self->setCreatedAt($state['created_at']);
         $self->setRoles($state['roles']);
+        $self->setSocial($state['social']);
+        $self->setSocialId($state['social_id']);
 
         return $self;
     }
@@ -224,5 +236,37 @@ class User implements AdvancedUserInterface
     public function isNew()
     {
         return (bool) $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSocial(): ?string
+    {
+        return $this->social;
+    }
+
+    /**
+     * @param string $social
+     */
+    public function setSocial(?string $social)
+    {
+        $this->social = $social;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSocialId(): ?string
+    {
+        return $this->socialId;
+    }
+
+    /**
+     * @param string $socialId
+     */
+    public function setSocialId(?string $socialId)
+    {
+        $this->socialId = $socialId;
     }
 }
