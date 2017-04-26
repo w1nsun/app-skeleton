@@ -11,5 +11,9 @@ rest:
 admin:
   resource: '@AdminBundle/Resources/config/routing.yml'
 
+acme:
+  resource: '@AcmeBundle/Resources/config/routing.yml'
+
+
 logout:
     path: /logout

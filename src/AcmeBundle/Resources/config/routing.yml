@@ -1,0 +1,11 @@
+acme_acme_index:
+    path: /acme/acme/index
+    defaults: { _controller: AcmeBundle:Frontend/Acme:index }
+
+acme_acme_add:
+    path: /acme/acme/add
+    defaults: { _controller: AcmeBundle:Frontend/Acme:add }
+
+acme_acme_update:
+    path: /acme/acme/update/{id}
+    defaults: { _controller: AcmeBundle:Frontend/Acme:update }

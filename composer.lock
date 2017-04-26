@@ -1664,17 +1664,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tequila/mongodb-odm.git",
-                "reference": "142f4f305147b170dc91d085dcc06b65416d9872"
+                "reference": "d88b8341a9d55fcc49a4df6f1fd72b6dcb7caba2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tequila/mongodb-odm/zipball/142f4f305147b170dc91d085dcc06b65416d9872",
-                "reference": "142f4f305147b170dc91d085dcc06b65416d9872",
+                "url": "https://api.github.com/repos/tequila/mongodb-odm/zipball/d88b8341a9d55fcc49a4df6f1fd72b6dcb7caba2",
+                "reference": "d88b8341a9d55fcc49a4df6f1fd72b6dcb7caba2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6",
                 "tequila/mongodb-php-lib": "dev-master"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.7.x-dev"
             },
             "type": "library",
             "autoload": {
@@ -1693,7 +1696,7 @@
                 }
             ],
             "description": "MongoDB ODM for PHP",
-            "time": "2017-04-24 19:09:56"
+            "time": "2017-04-25 20:46:14"
         },
         {
             "name": "tequila/mongodb-odm-bundle",

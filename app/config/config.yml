@@ -57,5 +57,5 @@ tequila_mongodb:
             uri: mongodb://mongo/
     databases:
         default:
-            name: blizzard
+            name: tequila
             connection: default
