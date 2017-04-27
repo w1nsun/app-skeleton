@@ -6,7 +6,7 @@ use BlizzardBundle\Storage\AbstractMongoStorage;
 
 class UserMongoStorage extends AbstractMongoStorage
 {
-    protected function getCollectionName(): string
+    protected function getCollectionName()
     {
         return 'users';
     }

@@ -65,7 +65,7 @@ class User implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getId(): ?string
+    public function getId()
     {
         return $this->id;
     }
@@ -73,7 +73,7 @@ class User implements AdvancedUserInterface
     /**
      * @param string $id
      */
-    public function setId(string $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -89,7 +89,7 @@ class User implements AdvancedUserInterface
     /**
      * @param string $email
      */
-    public function setEmail(string $email)
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -97,7 +97,7 @@ class User implements AdvancedUserInterface
     /**
      * @return bool
      */
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->isActive;
     }
@@ -105,7 +105,7 @@ class User implements AdvancedUserInterface
     /**
      * @param bool $isActive
      */
-    public function setIsActive(bool $isActive)
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
@@ -113,12 +113,12 @@ class User implements AdvancedUserInterface
     /**
      * @param string $password
      */
-    public function setPassword(string $password)
+    public function setPassword($password)
     {
         $this->password = $password;
     }
 
-    public function setUsername(string $username)
+    public function setUsername($username)
     {
         $this->username = $username;
     }
@@ -161,7 +161,7 @@ class User implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getPlainPassword(): ?string
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
@@ -169,7 +169,7 @@ class User implements AdvancedUserInterface
     /**
      * @param string $plainPassword
      */
-    public function setPlainPassword(string $plainPassword)
+    public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
     }
@@ -178,7 +178,7 @@ class User implements AdvancedUserInterface
      * @param array $state
      * @return User
      */
-    public static function fromState(array $state): User
+    public static function fromState(array $state)
     {
         $self = new self();
         $self->setId((string) $state['_id']);
@@ -217,7 +217,7 @@ class User implements AdvancedUserInterface
     /**
      * @return int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -225,7 +225,7 @@ class User implements AdvancedUserInterface
     /**
      * @param int $createdAt
      */
-    public function setCreatedAt(int $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -241,7 +241,7 @@ class User implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getSocial(): ?string
+    public function getSocial()
     {
         return $this->social;
     }
@@ -257,7 +257,7 @@ class User implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getSocialId(): ?string
+    public function getSocialId()
     {
         return $this->socialId;
     }
@@ -265,7 +265,7 @@ class User implements AdvancedUserInterface
     /**
      * @param string $socialId
      */
-    public function setSocialId(?string $socialId)
+    public function setSocialId($socialId)
     {
         $this->socialId = $socialId;
     }

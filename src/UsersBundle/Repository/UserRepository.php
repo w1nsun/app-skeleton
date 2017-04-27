@@ -23,7 +23,7 @@ class UserRepository
     /**
      * @param User $user
      */
-    public function save(User $user): void
+    public function save(User $user)
     {
         $document = [
             'username' => $user->getUsername(),
@@ -50,7 +50,7 @@ class UserRepository
      * @param $username
      * @return null|User
      */
-    public function findByUsername($username): ?User
+    public function findByUsername($username)
     {
         $rows = $this->storage->find(['username' => $username])->toArray();
         if (!count($rows)) {
@@ -65,7 +65,7 @@ class UserRepository
      * @param int $limit
      * @return array|User[]
      */
-    public function findAll(int $skip = 0, int $limit = 25): array
+    public function findAll($skip = 0, $limit = 25)
     {
         $rows = $this->storage->find([], $skip, $limit)->toArray();
         $users = [];
@@ -81,7 +81,7 @@ class UserRepository
      * @param string $socialId
      * @return null|User
      */
-    public function findBySocial(string $social, string $socialId): ?User
+    public function findBySocial($social, $socialId)
     {
         $rows = $this->storage->find(['social' => $social, 'social_id' => $socialId])->toArray();
         if (!count($rows)) {

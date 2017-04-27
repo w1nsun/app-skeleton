@@ -34,12 +34,12 @@ abstract class AbstractMongoStorage
         $this->options = $options;
     }
 
-    abstract protected function getCollectionName(): string;
+    abstract protected function getCollectionName();
 
     /**
      * @return string
      */
-    protected function getNamespace(): string
+    protected function getNamespace()
     {
         return $this->options['database'].'.'.$this->getCollectionName();
     }
@@ -66,7 +66,7 @@ abstract class AbstractMongoStorage
      * @param array $document
      * @return void
      */
-    public function update(string $id, array $document)
+    public function update($id, array $document)
     {
         $bulk = new BulkWrite();
         $bulk->update(
@@ -113,7 +113,7 @@ abstract class AbstractMongoStorage
      * @param int $skip
      * @return \MongoDB\Driver\Cursor
      */
-    public function find(array $condition = [], int $limit = 1, int $skip = 0)
+    public function find(array $condition = [], $limit = 1, $skip = 0)
     {
         $query = new Query($condition, ['limit' => $limit, $skip => $skip]);
         $rows = $this->mongodbManager->executeQuery($this->getNamespace(), $query);

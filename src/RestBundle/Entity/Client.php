@@ -99,7 +99,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getId(): ?string
+    public function getId()
     {
         return $this->id;
     }
@@ -107,7 +107,7 @@ class Client implements AdvancedUserInterface
     /**
      * @param string $id
      */
-    public function setId(string $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -115,7 +115,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getToken(): ?string
+    public function getToken()
     {
         return $this->token;
     }
@@ -123,7 +123,7 @@ class Client implements AdvancedUserInterface
     /**
      * @param string $token
      */
-    public function setToken(string $token)
+    public function setToken($token)
     {
         $this->token = $token;
     }
@@ -131,7 +131,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return array
      */
-    public function getResources(): array
+    public function getResources()
     {
         return $this->resources;
     }
@@ -147,7 +147,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -155,7 +155,7 @@ class Client implements AdvancedUserInterface
     /**
      * @param int $createdAt
      */
-    public function setCreatedAt(int $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -163,7 +163,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return bool
      */
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->isActive;
     }
@@ -171,7 +171,7 @@ class Client implements AdvancedUserInterface
     /**
      * @param bool $isActive
      */
-    public function setIsActive(bool $isActive)
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
@@ -179,7 +179,7 @@ class Client implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -187,7 +187,7 @@ class Client implements AdvancedUserInterface
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -196,7 +196,7 @@ class Client implements AdvancedUserInterface
      * @param array $state
      * @return Client
      */
-    public static function fromState(array $state): Client
+    public static function fromState(array $state)
     {
         $self = new self();
         $self->setId((string) $state['_id']);

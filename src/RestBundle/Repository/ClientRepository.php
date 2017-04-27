@@ -23,7 +23,7 @@ class ClientRepository
     /**
      * @param Client $client
      */
-    public function save(Client $client): void
+    public function save(Client $client)
     {
         $document = [
             'name' => $client->getName(),
@@ -49,7 +49,7 @@ class ClientRepository
      * @param int $limit
      * @return array|Client[]
      */
-    public function findAll(int $skip = 0, int $limit = 25): array
+    public function findAll($skip = 0, $limit = 25)
     {
         $rows = $this->storage->find([], $skip, $limit)->toArray();
         $users = [];
